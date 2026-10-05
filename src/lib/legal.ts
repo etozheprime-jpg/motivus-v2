@@ -63,7 +63,10 @@ export const PRIVACY: LegalDoc = {
     {
       title: "Duomenų naudojimo tikslai",
       blocks: [
-        { type: "p", text: "Jūsų pateiktus duomenis naudojame tik šiais tikslais:" },
+        {
+          type: "p",
+          text: "Jūsų pateiktus duomenis naudojame tik šiais tikslais:",
+        },
         {
           type: "ul",
           items: [
@@ -73,7 +76,10 @@ export const PRIVACY: LegalDoc = {
             "Svetainės tobulinimui ir reklamos optimizavimui (Google Ads, Facebook Ads).",
           ],
         },
-        { type: "p", text: "Mes niekada neparduodame Jūsų duomenų trečiosioms šalims." },
+        {
+          type: "p",
+          text: "Mes niekada neparduodame Jūsų duomenų trečiosioms šalims.",
+        },
       ],
     },
     {
@@ -130,7 +136,10 @@ export const PRIVACY: LegalDoc = {
             "Pateikti skundą Valstybinei duomenų apsaugos inspekcijai.",
           ],
         },
-        { type: "p", text: "Prašymus galite pateikti el. paštu: info@motivus.lt" },
+        {
+          type: "p",
+          text: "Prašymus galite pateikti el. paštu: info@motivus.lt",
+        },
       ],
     },
     {
@@ -243,7 +252,10 @@ export const COOKIES: LegalDoc = {
     {
       title: "Kontaktai",
       blocks: [
-        { type: "p", text: "Jeigu turite klausimų dėl šios slapukų politikos, kreipkitės:" },
+        {
+          type: "p",
+          text: "Jeigu turite klausimų dėl šios slapukų politikos, kreipkitės:",
+        },
         { type: "contact", lines: COMPANY },
       ],
     },

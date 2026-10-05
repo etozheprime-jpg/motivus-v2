@@ -1,6 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { AlertCircle, ArrowRight, Check, ImagePlus, Loader2, Phone, Trash2 } from "lucide-react";
+import {
+  AlertCircle,
+  ArrowRight,
+  Check,
+  ImagePlus,
+  Loader2,
+  Phone,
+  Trash2,
+} from "lucide-react";
 import Combobox from "./Combobox";
 import { BUSINESS } from "../lib/content";
 import { CITY_OPTIONS, FUELS, YEARS } from "../lib/formData";
@@ -47,7 +55,9 @@ export default function ValuationForm() {
   const [photos, setPhotos] = useState<{ file: File; url: string }[]>([]);
   const [errors, setErrors] = useState<Partial<Record<FieldKey, string>>>({});
   const [photoError, setPhotoError] = useState<string | null>(null);
-  const [status, setStatus] = useState<"idle" | "sending" | "done" | "failed">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "done" | "failed">(
+    "idle",
+  );
   const [failMsg, setFailMsg] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -67,24 +77,31 @@ export default function ValuationForm() {
 
   function validate(d: Data): Partial<Record<FieldKey, string>> {
     const e: Partial<Record<FieldKey, string>> = {};
-    if (d.makeModel.trim().length < 2) e.makeModel = "Nurodykite markę ir modelį.";
+    if (d.makeModel.trim().length < 2)
+      e.makeModel = "Nurodykite markę ir modelį.";
     if (!d.year) e.year = "Pasirinkite metus.";
     if (!d.fuel) e.fuel = "Pasirinkite kuro tipą.";
-    if (d.comment.trim().length < 10) e.comment = "Trumpai aprašykite automobilį.";
+    if (d.comment.trim().length < 10)
+      e.comment = "Trumpai aprašykite automobilį.";
     if (!d.desiredPrice.trim()) e.desiredPrice = "Nurodykite norimą kainą.";
     else if (!Number.isFinite(Number(d.desiredPrice.replace(/\s/g, ""))))
       e.desiredPrice = "Kaina turi būti skaičius.";
     if (d.city.trim().length < 2) e.city = "Nurodykite miestą.";
     // Ta pati taisyklė kaip api/lead.php – kitaip forma praleistų tai,
     // ką serveris atmestų.
-    if (d.phone.replace(/\D/g, "").length < 8 || !/^[0-9+()\s-]{6,20}$/.test(d.phone.trim()))
+    if (
+      d.phone.replace(/\D/g, "").length < 8 ||
+      !/^[0-9+()\s-]{6,20}$/.test(d.phone.trim())
+    )
       e.phone = "Įveskite telefono numerį.";
     return e;
   }
 
   const addPhotos = (files: FileList | null) => {
     if (!files) return;
-    const incoming = Array.from(files).filter((f) => f.type.startsWith("image/"));
+    const incoming = Array.from(files).filter((f) =>
+      f.type.startsWith("image/"),
+    );
     const tooBig = incoming.find((f) => f.size > MAX_BYTES);
     if (tooBig) {
       setPhotoError(`Nuotrauka „${tooBig.name}“ per didelė (iki 10 MB).`);
@@ -98,7 +115,9 @@ export default function ValuationForm() {
     setPhotoError(null);
     setPhotos((p) => [
       ...p,
-      ...incoming.slice(0, room).map((file) => ({ file, url: URL.createObjectURL(file) })),
+      ...incoming
+        .slice(0, room)
+        .map((file) => ({ file, url: URL.createObjectURL(file) })),
     ]);
   };
 
@@ -125,7 +144,10 @@ export default function ValuationForm() {
     }
     setStatus("sending");
     setFailMsg("");
-    const res = await submitLead({ ...data, photos: photos.map((p) => p.file) });
+    const res = await submitLead({
+      ...data,
+      photos: photos.map((p) => p.file),
+    });
     if (res.ok) {
       setStatus("done");
       rootRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -150,7 +172,13 @@ export default function ValuationForm() {
       ) : (
         <form onSubmit={onSubmit} noValidate className="vform">
           <div className="vform-grid grid sm:grid-cols-2">
-            <Field n="01" id="f-makemodel" label="Markė ir modelis" error={errors.makeModel} className="sm:col-span-2">
+            <Field
+              n="01"
+              id="f-makemodel"
+              label="Markė ir modelis"
+              error={errors.makeModel}
+              className="sm:col-span-2"
+            >
               <input
                 id="f-makemodel"
                 type="text"
@@ -219,11 +247,11 @@ export default function ValuationForm() {
                 <button
                   type="button"
                   onClick={() => fileRef.current?.click()}
-                  className="vform-photo inline-flex min-h-[44px] items-center gap-2 rounded-full border border-signal/55 bg-signal/12 px-4 text-[13.5px] font-bold text-signal transition-colors hover:border-signal hover:bg-signal/20"
+                  className="vform-photo inline-flex min-h-[44px] items-center gap-2 rounded-full border border-ink-900/20 bg-signal px-4 text-[13.5px] font-bold text-ink-900 transition-colors hover:bg-[#c2ff6b]"
                 >
                   <ImagePlus size={16} strokeWidth={2.2} />
                   Pridėti nuotraukas
-                  <span className="font-normal text-chalk-faint">neprivaloma</span>
+                  <span className="font-normal text-fg-faint">neprivaloma</span>
                 </button>
                 <input
                   ref={fileRef}
@@ -241,14 +269,18 @@ export default function ValuationForm() {
                     {photos.map((p, i) => (
                       <li
                         key={p.url}
-                        className="group relative aspect-square overflow-hidden rounded-lg border border-[color-mix(in_oklab,#f4f4f1_11%,transparent)]"
+                        className="group relative aspect-square overflow-hidden rounded-lg border border-[color-mix(in_oklab,var(--color-fg)_11%,transparent)]"
                       >
-                        <img src={p.url} alt="" className="h-full w-full object-cover" />
+                        <img
+                          src={p.url}
+                          alt=""
+                          className="h-full w-full object-cover"
+                        />
                         <button
                           type="button"
                           onClick={() => removePhoto(i)}
                           aria-label={`Pašalinti ${i + 1} nuotrauką`}
-                          className="absolute inset-0 grid place-items-center bg-ink-900/80 text-chalk opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"
+                          className="absolute inset-0 grid place-items-center bg-ink-900/80 text-fg opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"
                         >
                           <Trash2 size={14} />
                         </button>
@@ -256,11 +288,21 @@ export default function ValuationForm() {
                     ))}
                   </ul>
                 )}
-                {photoError && <p className="mt-2 text-[13px] text-[#ffb1a0]">{photoError}</p>}
+                {photoError && (
+                  <p className="mt-2 text-[13px] text-[#ffb1a0]">
+                    {photoError}
+                  </p>
+                )}
               </div>
             </Field>
 
-            <Field n="05" id="f-price" label="Norima kaina" hint="Orientacinė" error={errors.desiredPrice}>
+            <Field
+              n="05"
+              id="f-price"
+              label="Norima kaina"
+              hint="Orientacinė"
+              error={errors.desiredPrice}
+            >
               <div className="relative">
                 <input
                   id="f-price"
@@ -270,9 +312,11 @@ export default function ValuationForm() {
                   placeholder="Pvz. 4500"
                   className={`field pr-11 ${errors.desiredPrice ? "field-invalid" : ""}`}
                   value={data.desiredPrice}
-                  onChange={(e) => set("desiredPrice", e.target.value.replace(/[^\d\s]/g, ""))}
+                  onChange={(e) =>
+                    set("desiredPrice", e.target.value.replace(/[^\d\s]/g, ""))
+                  }
                 />
-                <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 num text-[15px] text-chalk-faint">
+                <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 num text-[15px] text-fg-faint">
                   €
                 </span>
               </div>
@@ -289,7 +333,13 @@ export default function ValuationForm() {
               />
             </Field>
 
-            <Field n="07" id="f-phone" label="Telefono numeris" error={errors.phone} className="sm:col-span-2">
+            <Field
+              n="07"
+              id="f-phone"
+              label="Telefono numeris"
+              error={errors.phone}
+              className="sm:col-span-2"
+            >
               <input
                 id="f-phone"
                 type="tel"
@@ -314,7 +364,11 @@ export default function ValuationForm() {
             </p>
           )}
 
-          <button type="submit" disabled={status === "sending"} className="btn btn-primary group mt-5 w-full">
+          <button
+            type="submit"
+            disabled={status === "sending"}
+            className="btn btn-primary group mt-5 w-full"
+          >
             {status === "sending" ? (
               <>
                 <Loader2 size={17} className="animate-spin" />
@@ -332,7 +386,7 @@ export default function ValuationForm() {
             )}
           </button>
 
-          <p className="vform-note mt-2.5 text-center text-[12px] leading-relaxed text-chalk-faint">
+          <p className="vform-note mt-2.5 text-center text-[12px] leading-relaxed text-fg-faint">
             Duomenis naudojame tik automobilio pasiūlymui pateikti.
           </p>
         </form>
@@ -361,15 +415,24 @@ function Field({
   return (
     <div className={className}>
       <label htmlFor={id} className="flex items-baseline gap-2.5">
-        <span className="label-mono !text-[10px] shrink-0 text-signal/70">{n}</span>
+        <span className="label-mono !text-[10px] shrink-0 text-accent/70">
+          {n}
+        </span>
         <span className="shrink-0 whitespace-nowrap font-display text-[14.5px] font-bold tracking-[-0.01em]">
           {label}
         </span>
-        {hint && <span className="min-w-0 truncate text-[12.5px] text-chalk-faint">{hint}</span>}
+        {hint && (
+          <span className="min-w-0 truncate text-[12.5px] text-fg-faint">
+            {hint}
+          </span>
+        )}
       </label>
       <div className="mt-1.5">{children}</div>
       {error && (
-        <p role="alert" className="mt-1.5 flex items-start gap-1.5 text-[13px] text-[#ffb1a0]">
+        <p
+          role="alert"
+          className="mt-1.5 flex items-start gap-1.5 text-[13px] text-[#ffb1a0]"
+        >
           <AlertCircle size={14} className="mt-0.5 flex-none" />
           {error}
         </p>
@@ -390,16 +453,25 @@ function Success({ onReset }: { onReset: () => void }) {
       <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-signal text-ink-900">
         <Check size={30} strokeWidth={3} />
       </div>
-      <h2 className="mt-6 text-[clamp(1.5rem,4vw,2rem)]">Ačiū! Jūsų užklausa gauta.</h2>
-      <p className="mx-auto mt-3 max-w-[40ch] text-[15.5px] leading-relaxed text-chalk-dim">
+      <h2 className="mt-6 text-[clamp(1.5rem,4vw,2rem)]">
+        Ačiū! Jūsų užklausa gauta.
+      </h2>
+      <p className="mx-auto mt-3 max-w-[40ch] text-[15.5px] leading-relaxed text-fg-dim">
         Mūsų komanda susisieks su jumis ir pateiks automobilio pasiūlymą.
       </p>
       <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
-        <a href={BUSINESS.phoneHref} className="btn btn-primary w-full sm:w-auto">
+        <a
+          href={BUSINESS.phoneHref}
+          className="btn btn-primary w-full sm:w-auto"
+        >
           <Phone size={17} strokeWidth={2.3} />
           Skambinti MOTIVUS
         </a>
-        <button type="button" onClick={onReset} className="btn btn-ghost w-full sm:w-auto">
+        <button
+          type="button"
+          onClick={onReset}
+          className="btn btn-ghost w-full sm:w-auto"
+        >
           Pateikti dar vieną
         </button>
       </div>

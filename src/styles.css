@@ -1,32 +1,48 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Montserrat", "Helvetica Neue", sans-serif;
-  --font-sans: "Nunito", system-ui, sans-serif;
+  /* Apvalūs, šiuolaikiški šriftai – jokių kampuotų. Abu palaiko lietuviškas raides. */
+  --font-display: "Bricolage Grotesque", "Figtree", system-ui, sans-serif;
+  --font-sans: "Figtree", system-ui, sans-serif;
 
-  /* Warm graphite, never navy */
-  --color-ink-900: #0a0b0d;
-  --color-ink-800: #0e0f12;
-  --color-ink-700: #14161a;
-  --color-ink-600: #1b1e23;
-  --color-ink-500: #262a31;
+  /* „Techpaso“ paletė: šilta popieriaus šviesa + žalsvi rašalo atspalviai */
+  --color-paper: #f3f0e8;
+  --color-paper-2: #ebe7dc;
+  --color-paper-3: #e1dccd;
 
-  --color-chalk: #f4f4f1;
-  --color-chalk-dim: #a9aeb4;
-  --color-chalk-faint: #878c96;
+  --color-fg: #0e1410;
+  --color-fg-dim: #434a41;
+  --color-fg-faint: #545c51;
 
-  /* Firminė MOTIVUS žalia (paimta iš logotipo) */
+  /* Konstanta tamsa: vaizdo įrašo uždangalui, užpakaliniams fonams, tekstui ant laimo */
+  --color-ink-900: #0e1410;
+  --color-ink-800: #14190f;
+
+  /* Firminė MOTIVUS žalia (iš logotipo) – tik užpildams ir žymekliui */
   --color-signal: #aeff3f;
   --color-signal-deep: #8ad91f;
+  /* Tekstui ir linijoms ant šviesaus fono – tamsi samanų žalia (7:1) */
+  --color-accent: #2b5a00;
+  --color-danger: #b52e13;
 
-  --radius-panel: 18px;
-  --radius-tile: 6px;
+  --radius-panel: 20px;
+  --radius-tile: 8px;
+}
+
+/* Tamsūs plotai (hero su vaizdo įrašu): tie patys įrankiai, apverstos reikšmės */
+.on-dark {
+  --color-fg: #f3f0e8;
+  --color-fg-dim: #d2d5cc;
+  --color-fg-faint: #a9aea3;
+  --color-accent: #aeff3f;
+  color: var(--color-fg);
 }
 
 @layer base {
-  :root {
-    --hairline: color-mix(in oklab, #f4f4f1 11%, transparent);
-    --hairline-strong: color-mix(in oklab, #f4f4f1 20%, transparent);
+  :root,
+  .on-dark {
+    --hairline: color-mix(in oklab, var(--color-fg) 13%, transparent);
+    --hairline-strong: color-mix(in oklab, var(--color-fg) 26%, transparent);
   }
 
   * {
@@ -51,15 +67,14 @@
   }
 
   body {
-    background-color: var(--color-ink-800);
+    background-color: var(--color-paper);
     -webkit-tap-highlight-color: transparent;
-    color: var(--color-chalk);
+    color: var(--color-fg);
     font-family: var(--font-sans);
     font-weight: 400;
     line-height: 1.6;
     overflow-x: hidden;
-    font-feature-settings: "ss01";
-    letter-spacing: -0.005em;
+    letter-spacing: -0.003em;
   }
 
   h1,
@@ -67,10 +82,9 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    font-variation-settings: "wdth" 112;
-    font-weight: 800;
-    line-height: 0.98;
-    letter-spacing: -0.03em;
+    font-weight: 750;
+    line-height: 1;
+    letter-spacing: -0.035em;
     text-wrap: balance;
   }
 
@@ -80,7 +94,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-signal);
+    outline: 2px solid var(--color-accent);
     outline-offset: 3px;
     border-radius: 2px;
   }
@@ -116,7 +130,7 @@
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-chalk-faint);
+  color: var(--color-fg-faint);
 }
 
 @utility num {
@@ -137,8 +151,8 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.045;
-  mix-blend-mode: overlay;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -147,7 +161,7 @@
   background-image: linear-gradient(
     115deg,
     transparent 0%,
-    color-mix(in oklab, #f4f4f1 3.5%, transparent) 42%,
+    color-mix(in oklab, var(--color-fg) 4%, transparent) 42%,
     transparent 72%
   );
 }
@@ -174,8 +188,11 @@
     font-size: 15px;
     letter-spacing: -0.01em;
     cursor: pointer;
-    transition: transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
-      background-color 180ms ease, color 180ms ease, box-shadow 220ms ease,
+    transition:
+      transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      background-color 180ms ease,
+      color 180ms ease,
+      box-shadow 220ms ease,
       border-color 180ms ease;
     white-space: nowrap;
   }
@@ -197,49 +214,52 @@
 }
 .btn-primary:hover:not(:disabled) {
   background: #c2ff6b;
-  box-shadow: 0 10px 34px -12px color-mix(in oklab, #aeff3f 70%, transparent);
+  box-shadow: 0 12px 30px -14px color-mix(in oklab, #2b5a00 70%, transparent);
 }
 
 .btn-ghost {
   background: transparent;
-  color: var(--color-chalk);
+  color: var(--color-fg);
   border: 1px solid var(--hairline-strong);
 }
 .btn-ghost:hover:not(:disabled) {
-  border-color: var(--color-signal);
-  color: var(--color-signal);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
 }
 
 /* ---- Form controls ---- */
 .field {
   width: 100%;
   min-height: 46px;
-  background: var(--color-ink-700);
+  background: var(--color-paper-2);
   border: 1px solid var(--hairline);
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 0 1.05rem;
   font-size: 16px;
-  transition: border-color 160ms ease, background-color 160ms ease;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease;
 }
 .field::placeholder {
-  color: var(--color-chalk-faint);
+  color: var(--color-fg-faint);
 }
 .field:hover {
   border-color: var(--hairline-strong);
 }
 .field:focus {
-  border-color: var(--color-signal);
+  border-color: var(--color-accent);
   outline: none;
-  background: var(--color-ink-600);
+  background: var(--color-paper);
+  box-shadow: 0 0 0 3px color-mix(in oklab, #aeff3f 55%, transparent);
 }
 .field-invalid,
 .field-invalid:focus {
-  border-color: #ff6b4a;
+  border-color: var(--color-danger);
 }
 
 select.field {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23a9aeb4' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23545c51' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1.05rem center;
   padding-right: 2.8rem;
@@ -286,8 +306,8 @@ select.field {
 }
 
 select.field option {
-  background: var(--color-ink-700);
-  color: var(--color-chalk);
+  background: var(--color-paper);
+  color: var(--color-fg);
 }
 
 /* Choice tiles — the form's signature control */
@@ -299,27 +319,29 @@ select.field option {
   min-height: 60px;
   padding: 0 1.1rem;
   text-align: left;
-  background: var(--color-ink-700);
+  background: var(--color-paper-2);
   border: 1px solid var(--hairline);
-  border-radius: 12px;
+  border-radius: 14px;
   font-weight: 600;
   font-size: 15.5px;
   cursor: pointer;
-  transition: border-color 160ms ease, background-color 160ms ease,
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
     transform 160ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .choice:hover {
   border-color: var(--hairline-strong);
-  background: var(--color-ink-600);
+  background: var(--color-paper-3);
 }
 .choice[aria-pressed="true"] {
-  border-color: var(--color-signal);
-  background: color-mix(in oklab, #aeff3f 9%, var(--color-ink-700));
-  color: #ddff9d;
+  border-color: var(--color-accent);
+  background: color-mix(in oklab, #aeff3f 38%, var(--color-paper-2));
+  color: var(--color-fg);
 }
 .choice[aria-pressed="true"] .choice-dot {
-  background: var(--color-signal);
-  border-color: var(--color-signal);
+  background: var(--color-fg);
+  border-color: var(--color-fg);
 }
 .choice-dot {
   flex: none;
@@ -327,14 +349,17 @@ select.field option {
   height: 18px;
   border-radius: 50%;
   border: 1.5px solid var(--hairline-strong);
-  transition: background-color 160ms ease, border-color 160ms ease;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease;
 }
 
 /* ---- Reveal on scroll ---- */
 .reveal {
   opacity: 0;
   transform: translateY(22px);
-  transition: opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1),
+  transition:
+    opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1),
     transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
   transition-delay: var(--reveal-delay, 0ms);
 }

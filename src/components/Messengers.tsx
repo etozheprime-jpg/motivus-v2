@@ -34,9 +34,15 @@ export default function Messengers({
           rel="noopener noreferrer"
           aria-label={`Rašyti per ${m.label}`}
           title={m.label}
-          className={`grid ${box} place-items-center rounded-full border border-[color-mix(in_oklab,#f4f4f1_20%,transparent)] bg-ink-900/50 text-chalk-dim backdrop-blur-sm transition-colors hover:border-signal hover:text-signal`}
+          className={`grid ${box} place-items-center rounded-full border border-[color-mix(in_oklab,var(--color-fg)_20%,transparent)] bg-[color-mix(in_oklab,var(--color-fg)_7%,transparent)] text-fg backdrop-blur-sm transition-colors hover:border-accent hover:text-accent`}
         >
-          <svg viewBox="0 0 24 24" width={icon} height={icon} fill="currentColor" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            width={icon}
+            height={icon}
+            fill="currentColor"
+            aria-hidden="true"
+          >
             {ICONS[m.id]}
           </svg>
         </a>

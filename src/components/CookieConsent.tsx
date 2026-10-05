@@ -129,11 +129,11 @@ export default function CookieConsent() {
       className="fixed inset-x-0 bottom-0 z-[80] p-3 sm:inset-x-auto sm:bottom-6 sm:right-6 sm:p-0"
       style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
     >
-      <div className="mx-auto w-full max-w-[460px] overflow-hidden rounded-panel border border-[color-mix(in_oklab,#f4f4f1_20%,transparent)] bg-ink-800/97 shadow-[0_30px_90px_-25px_rgba(0,0,0,0.95)] backdrop-blur-xl sm:w-[440px]">
+      <div className="mx-auto w-full max-w-[460px] overflow-hidden rounded-panel border border-[color-mix(in_oklab,var(--color-fg)_20%,transparent)] bg-paper/97 shadow-[0_30px_90px_-25px_rgba(0,0,0,0.95)] backdrop-blur-xl sm:w-[440px]">
         <div className="flex items-start gap-3 px-5 pt-5 sm:px-6 sm:pt-6">
           <span
             aria-hidden="true"
-            className="grid h-9 w-9 flex-none place-items-center rounded-full bg-signal/14 text-signal"
+            className="grid h-9 w-9 flex-none place-items-center rounded-full bg-signal/14 text-accent"
           >
             <Cookie size={18} strokeWidth={2.2} />
           </span>
@@ -141,12 +141,12 @@ export default function CookieConsent() {
             <h2 className="text-[17px] leading-tight tracking-[-0.02em]">
               Slapukai šioje svetainėje
             </h2>
-            <p className="mt-2 text-[14px] leading-[1.6] text-chalk-dim">
+            <p className="mt-2 text-[14px] leading-[1.6] text-fg-dim">
               Būtinuosius slapukus naudojame, kad svetainė veiktų. Analitinius
               ir reklaminius – tik jums sutikus. Plačiau –{" "}
               <a
                 href={url("/slapuku-politika/")}
-                className="font-semibold text-signal underline underline-offset-4 hover:no-underline"
+                className="font-semibold text-accent underline underline-offset-4 hover:no-underline"
               >
                 slapukų politikoje
               </a>
@@ -158,7 +158,7 @@ export default function CookieConsent() {
               type="button"
               onClick={() => setOpen(false)}
               aria-label="Uždaryti"
-              className="grid h-8 w-8 flex-none place-items-center rounded-full border border-[color-mix(in_oklab,#f4f4f1_18%,transparent)] text-chalk-faint transition-colors hover:border-signal hover:text-signal"
+              className="grid h-8 w-8 flex-none place-items-center rounded-full border border-[color-mix(in_oklab,var(--color-fg)_18%,transparent)] text-fg-faint transition-colors hover:border-accent hover:text-accent"
             >
               <X size={15} strokeWidth={2.4} />
             </button>
@@ -166,7 +166,7 @@ export default function CookieConsent() {
         </div>
 
         {details && (
-          <div className="mt-4 max-h-[38svh] overflow-y-auto overscroll-contain border-t border-[color-mix(in_oklab,#f4f4f1_11%,transparent)] px-5 sm:px-6">
+          <div className="mt-4 max-h-[38svh] overflow-y-auto overscroll-contain border-t border-[color-mix(in_oklab,var(--color-fg)_11%,transparent)] px-5 sm:px-6">
             {CATEGORIES.map((c) => {
               const on = c.locked
                 ? true
@@ -174,7 +174,7 @@ export default function CookieConsent() {
               return (
                 <div
                   key={c.key}
-                  className="border-b border-[color-mix(in_oklab,#f4f4f1_9%,transparent)] py-4 last:border-b-0"
+                  className="border-b border-[color-mix(in_oklab,var(--color-fg)_9%,transparent)] py-4 last:border-b-0"
                 >
                   <label className="flex cursor-pointer items-start gap-3">
                     <input
@@ -190,15 +190,15 @@ export default function CookieConsent() {
                       aria-hidden="true"
                       className={`mt-0.5 grid h-5 w-9 flex-none items-center rounded-full border transition-colors ${
                         on
-                          ? "border-signal bg-signal/30"
-                          : "border-[color-mix(in_oklab,#f4f4f1_24%,transparent)] bg-ink-700"
+                          ? "border-accent bg-signal/30"
+                          : "border-[color-mix(in_oklab,var(--color-fg)_24%,transparent)] bg-paper-2"
                       } ${c.locked ? "opacity-55" : ""}`}
                     >
                       <span
                         className={`block h-3.5 w-3.5 rounded-full transition-transform duration-200 ${
                           on
                             ? "translate-x-[18px] bg-signal"
-                            : "translate-x-[3px] bg-chalk-faint"
+                            : "translate-x-[3px] bg-fg-faint"
                         }`}
                       />
                     </span>
@@ -206,12 +206,12 @@ export default function CookieConsent() {
                       <span className="block text-[14.5px] font-bold">
                         {c.title}
                         {c.locked && (
-                          <span className="label-mono ml-2 !text-[9.5px] text-chalk-faint">
+                          <span className="label-mono ml-2 !text-[9.5px] text-fg-faint">
                             visada įjungti
                           </span>
                         )}
                       </span>
-                      <span className="mt-1 block text-[13.5px] leading-[1.55] text-chalk-dim">
+                      <span className="mt-1 block text-[13.5px] leading-[1.55] text-fg-dim">
                         {c.text}
                       </span>
                     </span>
@@ -244,7 +244,7 @@ export default function CookieConsent() {
             <button
               type="button"
               onClick={() => decide(picked)}
-              className="btn btn-ghost !min-h-[44px] !border-transparent !px-4 !text-[13.5px] !text-chalk-dim hover:!text-signal"
+              className="btn btn-ghost !min-h-[44px] !border-transparent !px-4 !text-[13.5px] !text-fg-dim hover:!text-accent"
             >
               Išsaugoti pasirinkimą
             </button>
@@ -252,7 +252,7 @@ export default function CookieConsent() {
             <button
               type="button"
               onClick={() => setDetails(true)}
-              className="btn btn-ghost !min-h-[44px] !border-transparent !px-4 !text-[13.5px] !text-chalk-dim hover:!text-signal"
+              className="btn btn-ghost !min-h-[44px] !border-transparent !px-4 !text-[13.5px] !text-fg-dim hover:!text-accent"
             >
               Nustatymai
             </button>

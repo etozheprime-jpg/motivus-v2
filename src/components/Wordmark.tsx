@@ -9,7 +9,11 @@ export default function Wordmark({ className = "" }: { className?: string }) {
       aria-label="MOTIVUS"
     >
       <span aria-hidden="true">M</span>
-      <svg viewBox="0 0 100 100" className="mx-[0.03em] h-[0.76em] w-[0.76em] shrink-0" aria-hidden="true">
+      <svg
+        viewBox="0 0 100 100"
+        className="mx-[0.03em] h-[0.76em] w-[0.76em] shrink-0"
+        aria-hidden="true"
+      >
         <path
           fillRule="evenodd"
           clipRule="evenodd"

@@ -5,11 +5,16 @@
  * todėl visos vidinės nuorodos turi eiti per šią funkciją.
  */
 export function url(path: string): string {
-  return import.meta.env.BASE_URL.replace(/\/$/, "") + "/" + path.replace(/^\//, "");
+  return (
+    import.meta.env.BASE_URL.replace(/\/$/, "") + "/" + path.replace(/^\//, "")
+  );
 }
 
 /** Ar esame pagrindiniame puslapyje (ne teisiniame)? */
 export function isHome(): boolean {
   if (typeof window === "undefined") return true;
-  return window.location.pathname.replace(/\/$/, "") === import.meta.env.BASE_URL.replace(/\/$/, "");
+  return (
+    window.location.pathname.replace(/\/$/, "") ===
+    import.meta.env.BASE_URL.replace(/\/$/, "")
+  );
 }

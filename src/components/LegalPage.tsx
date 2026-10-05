@@ -19,14 +19,22 @@ function slugify(s: string) {
 
 function Block({ block }: { block: LegalBlock }) {
   if (block.type === "p") {
-    return <p className="mt-4 text-[16px] leading-[1.7] text-chalk-dim">{block.text}</p>;
+    return (
+      <p className="mt-4 text-[16px] leading-[1.7] text-fg-dim">{block.text}</p>
+    );
   }
   if (block.type === "ul") {
     return (
       <ul className="mt-4 space-y-2.5">
         {block.items.map((it) => (
-          <li key={it} className="flex gap-3 text-[16px] leading-[1.7] text-chalk-dim">
-            <span aria-hidden="true" className="mt-[11px] h-px w-3 flex-none bg-signal/70" />
+          <li
+            key={it}
+            className="flex gap-3 text-[16px] leading-[1.7] text-fg-dim"
+          >
+            <span
+              aria-hidden="true"
+              className="mt-[11px] h-px w-3 flex-none bg-accent"
+            />
             <span>{it}</span>
           </li>
         ))}
@@ -36,7 +44,7 @@ function Block({ block }: { block: LegalBlock }) {
   return (
     <address className="mt-4 not-italic">
       {block.lines.map((l) => (
-        <span key={l} className="block text-[16px] leading-[1.8] text-chalk-dim">
+        <span key={l} className="block text-[16px] leading-[1.8] text-fg-dim">
           {l}
         </span>
       ))}
@@ -70,14 +78,16 @@ function Article({ doc }: { doc: LegalDoc }) {
   return (
     <main className="mx-auto max-w-[1320px] px-5 pb-20 pt-14 lg:px-8 lg:pb-28 lg:pt-20">
       <div className="max-w-[760px]">
-        <p className="label-mono text-signal/90">Teisinė informacija</p>
+        <p className="label-mono text-accent/90">Teisinė informacija</p>
         <h1 className="mt-4 text-[clamp(2.1rem,6vw,3.4rem)] leading-[1.03] tracking-[-0.035em]">
           {doc.title}
         </h1>
-        <p className="mt-5 num text-[13px] text-chalk-faint">
+        <p className="mt-5 num text-[13px] text-fg-faint">
           Paskutinį kartą atnaujinta: {doc.updated}
         </p>
-        <p className="mt-6 max-w-[68ch] text-[17px] leading-[1.68] text-chalk-dim">{doc.intro}</p>
+        <p className="mt-6 max-w-[68ch] text-[17px] leading-[1.68] text-fg-dim">
+          {doc.intro}
+        </p>
       </div>
 
       <div className="mt-14 grid gap-12 lg:grid-cols-[1fr_250px] lg:gap-16">
@@ -88,12 +98,12 @@ function Article({ doc }: { doc: LegalDoc }) {
               <section
                 key={id}
                 id={id}
-                className="scroll-mt-24 border-t border-[color-mix(in_oklab,#f4f4f1_11%,transparent)] py-10 first:border-t-0 first:pt-0"
+                className="scroll-mt-24 border-t border-[color-mix(in_oklab,var(--color-fg)_11%,transparent)] py-10 first:border-t-0 first:pt-0"
               >
                 <div className="flex gap-5 sm:gap-7">
                   <span
                     aria-hidden="true"
-                    className="num mt-[7px] w-7 flex-none text-[13px] font-extrabold text-signal/80"
+                    className="num mt-[7px] w-7 flex-none text-[13px] font-extrabold text-accent/80"
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
@@ -110,12 +120,12 @@ function Article({ doc }: { doc: LegalDoc }) {
             );
           })}
 
-          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 border-t border-[color-mix(in_oklab,#f4f4f1_11%,transparent)] pt-8">
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 border-t border-[color-mix(in_oklab,var(--color-fg)_11%,transparent)] pt-8">
             {LEGAL.filter((l) => !l.href.includes(doc.slug)).map((l) => (
               <a
                 key={l.href}
                 href={url(l.href)}
-                className="text-[15px] font-semibold text-chalk-dim underline-offset-4 transition-colors hover:text-signal hover:underline"
+                className="text-[15px] font-semibold text-fg-dim underline-offset-4 transition-colors hover:text-accent hover:underline"
               >
                 {l.label} →
               </a>
@@ -123,9 +133,12 @@ function Article({ doc }: { doc: LegalDoc }) {
           </div>
         </div>
 
-        <nav aria-label="Dokumento turinys" className="hidden lg:order-2 lg:block">
+        <nav
+          aria-label="Dokumento turinys"
+          className="hidden lg:order-2 lg:block"
+        >
           <div className="lg:sticky lg:top-24">
-            <h2 className="label-mono text-chalk-faint">Turinys</h2>
+            <h2 className="label-mono text-fg-faint">Turinys</h2>
             <ul className="mt-4 space-y-0.5">
               {doc.sections.map((s, i) => {
                 const id = ids[i];
@@ -137,8 +150,8 @@ function Article({ doc }: { doc: LegalDoc }) {
                       aria-current={on ? "true" : undefined}
                       className={`flex gap-3 border-l py-1.5 pl-3 text-[14px] leading-[1.45] transition-colors ${
                         on
-                          ? "border-signal text-chalk"
-                          : "border-[color-mix(in_oklab,#f4f4f1_14%,transparent)] text-chalk-faint hover:border-signal/60 hover:text-chalk-dim"
+                          ? "border-accent text-fg"
+                          : "border-[color-mix(in_oklab,var(--color-fg)_14%,transparent)] text-fg-faint hover:border-accent/60 hover:text-fg-dim"
                       }`}
                     >
                       <span className="num flex-none text-[11.5px] font-bold opacity-70">

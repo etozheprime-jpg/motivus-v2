@@ -86,7 +86,7 @@ export default function FormModal() {
         initial={{ y: 40, scale: 0.985 }}
         animate={{ y: 0, scale: 1 }}
         transition={{ duration: 0.28, ease: [0.2, 0.8, 0.2, 1] }}
-        className="relative flex max-h-[92svh] w-full flex-col overflow-hidden rounded-t-[26px] bg-ink-800 shadow-[0_40px_120px_-30px_rgba(0,0,0,0.95)] sm:max-h-[90svh] sm:max-w-[640px] sm:rounded-[26px] sm:border sm:border-[color-mix(in_oklab,#f4f4f1_20%,transparent)]"
+        className="relative flex max-h-[92svh] w-full flex-col overflow-hidden rounded-t-[26px] bg-paper shadow-[0_40px_120px_-30px_rgba(0,0,0,0.95)] sm:max-h-[90svh] sm:max-w-[640px] sm:rounded-[26px] sm:border sm:border-[color-mix(in_oklab,var(--color-fg)_20%,transparent)]"
       >
         <div className="vform-head flex flex-none items-center justify-between gap-4 px-5 pb-3 pt-5 sm:px-7 sm:pt-6">
           <h2 className="text-[clamp(1.25rem,4vw,1.6rem)]">
@@ -96,14 +96,14 @@ export default function FormModal() {
             type="button"
             onClick={closeForm}
             aria-label="Uždaryti"
-            className="grid h-11 w-11 flex-none place-items-center rounded-full border border-[color-mix(in_oklab,#f4f4f1_20%,transparent)] text-chalk-dim transition-colors hover:border-signal hover:text-signal"
+            className="grid h-11 w-11 flex-none place-items-center rounded-full border border-[color-mix(in_oklab,var(--color-fg)_20%,transparent)] text-fg-dim transition-colors hover:border-accent hover:text-accent"
           >
             <X size={19} strokeWidth={2.3} />
           </button>
         </div>
 
         {/* Mobiliajame – „grabber“, kad būtų aišku, jog langas slenkamas */}
-        <div className="mx-auto mb-1 h-1 w-10 flex-none rounded-full bg-[color-mix(in_oklab,#f4f4f1_18%,transparent)] sm:hidden" />
+        <div className="mx-auto mb-1 h-1 w-10 flex-none rounded-full bg-[color-mix(in_oklab,var(--color-fg)_18%,transparent)] sm:hidden" />
 
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 pb-[max(20px,env(safe-area-inset-bottom))] sm:px-7 sm:pb-7">
           <ValuationForm />

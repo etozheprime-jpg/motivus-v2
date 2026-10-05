@@ -1,4 +1,11 @@
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+  type ReactNode,
+} from "react";
 
 type Ctx = { open: boolean; openForm: () => void; closeForm: () => void };
 
@@ -8,12 +15,22 @@ export function FormModalProvider({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const openForm = useCallback(() => setOpen(true), []);
   const closeForm = useCallback(() => setOpen(false), []);
-  const value = useMemo(() => ({ open, openForm, closeForm }), [open, openForm, closeForm]);
-  return <FormModalContext.Provider value={value}>{children}</FormModalContext.Provider>;
+  const value = useMemo(
+    () => ({ open, openForm, closeForm }),
+    [open, openForm, closeForm],
+  );
+  return (
+    <FormModalContext.Provider value={value}>
+      {children}
+    </FormModalContext.Provider>
+  );
 }
 
 export function useFormModal() {
   const ctx = useContext(FormModalContext);
-  if (!ctx) throw new Error("useFormModal turi būti naudojamas FormModalProvider viduje");
+  if (!ctx)
+    throw new Error(
+      "useFormModal turi būti naudojamas FormModalProvider viduje",
+    );
   return ctx;
 }

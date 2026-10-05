@@ -22,7 +22,8 @@ export type LeadPayload = {
   photos: File[];
 };
 
-export type LeadResult = { ok: true; demo: boolean } | { ok: false; error: string };
+export type LeadResult =
+  { ok: true; demo: boolean } | { ok: false; error: string };
 
 const ENDPOINT = import.meta.env.VITE_LEAD_ENDPOINT as string | undefined;
 
@@ -42,7 +43,8 @@ export async function submitLead(lead: LeadPayload): Promise<LeadResult> {
   if (!ENDPOINT) {
     // Demo režimas: imituojamas tinklo vėlinimas, kad būtų matomos visos būsenos.
     await new Promise((r) => setTimeout(r, 1100));
-    if (import.meta.env.DEV) console.info("[MOTIVUS] Užklausa (demo režimas):", lead);
+    if (import.meta.env.DEV)
+      console.info("[MOTIVUS] Užklausa (demo režimas):", lead);
     return { ok: true, demo: true };
   }
 
@@ -54,6 +56,9 @@ export async function submitLead(lead: LeadPayload): Promise<LeadResult> {
     if (!res.ok) return { ok: false, error: `Serveris atsakė ${res.status}` };
     return { ok: true, demo: false };
   } catch {
-    return { ok: false, error: "Nepavyko išsiųsti. Patikrinkite interneto ryšį." };
+    return {
+      ok: false,
+      error: "Nepavyko išsiųsti. Patikrinkite interneto ryšį.",
+    };
   }
 }

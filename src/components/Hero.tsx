@@ -1,5 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, ChevronDown, Phone, Play, Volume2, VolumeX } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronDown,
+  Phone,
+  Play,
+  Volume2,
+  VolumeX,
+} from "lucide-react";
 import { BUSINESS } from "../lib/content";
 import Messengers from "./Messengers";
 import { useFormModal } from "../lib/formModal";
@@ -17,8 +24,11 @@ export default function Hero() {
    */
   const [lowData] = useState(() => {
     if (typeof navigator === "undefined") return false;
-    const c = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } })
-      .connection;
+    const c = (
+      navigator as Navigator & {
+        connection?: { saveData?: boolean; effectiveType?: string };
+      }
+    ).connection;
     return Boolean(c?.saveData) || /^(slow-)?2g$/.test(c?.effectiveType ?? "");
   });
 
@@ -55,7 +65,7 @@ export default function Hero() {
   return (
     <section
       id="pagrindinis"
-      className="relative isolate flex min-h-[100svh] flex-col overflow-hidden pb-7 pt-[96px] sm:pb-9 lg:pb-10 lg:pt-[112px]"
+      className="on-dark relative isolate flex min-h-[100svh] flex-col overflow-hidden pb-24 pt-[96px] sm:pb-28 lg:pb-28 lg:pt-[112px]"
     >
       <video
         ref={videoRef}
@@ -76,7 +86,10 @@ export default function Hero() {
       />
 
       {/* Tamsinimas, kad tekstas liktų skaitomas bet kuriame kadre */}
-      <div className="absolute inset-0 -z-10 bg-ink-900/58" aria-hidden="true" />
+      <div
+        className="absolute inset-0 -z-10 bg-ink-900/58"
+        aria-hidden="true"
+      />
       <div
         className="absolute inset-0 -z-10"
         style={{
@@ -85,10 +98,14 @@ export default function Hero() {
         }}
         aria-hidden="true"
       />
-      {/* Perėjimas į puslapio foną – be matomos siūlės */}
+      {/* Vaizdo įrašas ištirpsta į popieriaus foną – be matomos siūlės.
+          Turinys sąmoningai pakeltas virš šio pereinamojo ruožo. */}
       <div
-        className="absolute inset-x-0 bottom-0 -z-10 h-48"
-        style={{ background: "linear-gradient(to top, var(--color-ink-800), transparent)" }}
+        className="absolute inset-x-0 bottom-0 -z-10 h-32"
+        style={{
+          background:
+            "linear-gradient(to top, var(--color-paper) 0%, color-mix(in oklab, var(--color-paper) 55%, transparent) 38%, transparent 100%)",
+        }}
         aria-hidden="true"
       />
 
@@ -98,15 +115,16 @@ export default function Hero() {
           <h1 className="reveal max-w-[18ch] text-[clamp(2.1rem,6vw,4.2rem)] drop-shadow-[0_2px_28px_rgba(0,0,0,0.7)]">
             Parduokite automobilį greitai.
             <br />
-            <span className="text-signal">Gaukite sąžiningą kainą.</span>
+            <span className="text-accent">Gaukite sąžiningą kainą.</span>
           </h1>
 
           <p
-            className="reveal mt-6 max-w-[52ch] text-[16.5px] leading-[1.6] text-chalk-dim sm:text-[18px]"
+            className="reveal mt-6 max-w-[52ch] text-[16.5px] leading-[1.6] text-fg-dim sm:text-[18px]"
             style={{ "--reveal-delay": "90ms" } as React.CSSProperties}
           >
-            Įvertiname automobilį per kelias minutes, sutvarkome visus formalumus ir pasirūpiname
-            išgabenimu. Superkame tvarkingus, su defektais, daužtus ir nevažiuojančius.
+            Įvertiname automobilį per kelias minutes, sutvarkome visus
+            formalumus ir pasirūpiname išgabenimu. Superkame tvarkingus, su
+            defektais, daužtus ir nevažiuojančius.
           </p>
         </div>
       </div>
@@ -117,7 +135,11 @@ export default function Hero() {
           className="reveal flex w-full max-w-[460px] flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row sm:items-center"
           style={{ "--reveal-delay": "160ms" } as React.CSSProperties}
         >
-          <button type="button" onClick={openForm} className="btn btn-ghost group !bg-ink-900/55 backdrop-blur-md">
+          <button
+            type="button"
+            onClick={openForm}
+            className="btn btn-ghost group !bg-ink-900/55 backdrop-blur-md"
+          >
             Pildyti užklausą
             <ArrowRight
               size={18}
@@ -139,9 +161,9 @@ export default function Hero() {
         <a
           href="#kodel-motivus"
           aria-label="Slinkti žemyn"
-          className="mt-1 hidden text-chalk-faint transition-colors hover:text-signal [@media(min-height:760px)]:block"
+          className="mt-1 hidden h-10 w-10 place-items-center rounded-full bg-paper text-ink-900 shadow-[0_6px_20px_-8px_rgba(14,20,16,0.55)] transition-colors hover:bg-signal [@media(min-height:760px)]:grid"
         >
-          <ChevronDown size={22} strokeWidth={2.2} className="animate-bounce" />
+          <ChevronDown size={20} strokeWidth={2.4} className="animate-bounce" />
         </a>
       </div>
 
@@ -157,7 +179,7 @@ export default function Hero() {
               ? "Įjungti vaizdo įrašo garsą"
               : "Išjungti vaizdo įrašo garsą"
         }
-        className="absolute bottom-5 left-5 z-10 grid h-11 w-11 place-items-center rounded-full border border-[color-mix(in_oklab,#f4f4f1_22%,transparent)] bg-ink-900/60 text-chalk-dim backdrop-blur-md transition-colors hover:border-signal hover:text-signal lg:bottom-8 lg:left-8 lg:h-12 lg:w-12"
+        className="absolute bottom-28 left-5 z-10 grid h-11 w-11 place-items-center rounded-full border border-[color-mix(in_oklab,var(--color-fg)_26%,transparent)] bg-ink-900/60 text-fg backdrop-blur-md transition-colors hover:border-accent hover:text-accent sm:bottom-32 lg:left-8 lg:h-12 lg:w-12"
       >
         {!playing ? (
           <Play size={18} strokeWidth={2.2} />

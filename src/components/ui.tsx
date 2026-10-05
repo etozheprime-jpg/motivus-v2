@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
+/** Skyriaus žyma – lime „žymeklio“ pakaitalas: signalinė spalva naudojama kaip užpildas, ne kaip tekstas. */
 export function SectionLabel({ children }: { children: ReactNode }) {
   return (
-    <div className="flex items-center gap-3">
-      <span className="h-px w-8 bg-signal" />
-      <span className="label-mono text-signal/90">{children}</span>
-    </div>
+    <span className="label-mono inline-flex items-center gap-2 rounded-full bg-signal px-3.5 py-1.5 !text-ink-900">
+      <span
+        className="h-1.5 w-1.5 rounded-full bg-ink-900"
+        aria-hidden="true"
+      />
+      {children}
+    </span>
   );
 }
 
@@ -28,7 +32,7 @@ export function PhotoSlot({
 }) {
   const [failed, setFailed] = useState(false);
   return (
-    <div className={`relative overflow-hidden bg-ink-700 ${className}`}>
+    <div className={`relative overflow-hidden bg-paper-2 ${className}`}>
       <div className="absolute inset-0 sheen" aria-hidden="true" />
       {children}
       {!failed && (
@@ -43,7 +47,7 @@ export function PhotoSlot({
       )}
       {failed && (
         <div className="relative z-[2] flex h-full w-full items-end p-5">
-          <span className="label-mono text-chalk-faint">{label}</span>
+          <span className="label-mono text-fg-faint">{label}</span>
         </div>
       )}
     </div>
@@ -69,7 +73,9 @@ export function CountUp({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (reduced) {
       setVal(to);
       return;
@@ -94,7 +100,11 @@ export function CountUp({
   }, [to, duration]);
 
   return (
-    <span ref={ref} className={className} style={{ fontVariantNumeric: "tabular-nums" }}>
+    <span
+      ref={ref}
+      className={className}
+      style={{ fontVariantNumeric: "tabular-nums" }}
+    >
       {val}
       {suffix}
     </span>

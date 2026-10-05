@@ -19,8 +19,8 @@ export default function Footer() {
       <div className="mx-auto max-w-[1320px] px-5 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <Wordmark className="text-[24px] text-chalk [&_svg]:text-signal" />
-            <p className="mt-4 max-w-[34ch] text-[15px] leading-[1.6] text-chalk-dim">
+            <Wordmark className="text-[24px] text-fg [&_svg]:text-accent" />
+            <p className="mt-4 max-w-[34ch] text-[15px] leading-[1.6] text-fg-dim">
               Automobilių supirkimas — greitai, patogiai ir sąžiningai visoje
               Lietuvoje.
             </p>
@@ -31,7 +31,7 @@ export default function Footer() {
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full border border-[color-mix(in_oklab,#f4f4f1_20%,transparent)] px-4 py-2 text-[13px] font-semibold transition-colors hover:border-signal hover:text-signal"
+                  className="rounded-full border border-[color-mix(in_oklab,var(--color-fg)_20%,transparent)] px-4 py-2 text-[13px] font-semibold transition-colors hover:border-accent hover:text-accent"
                 >
                   {s.label}
                 </a>
@@ -46,7 +46,7 @@ export default function Footer() {
                 <li key={n.href}>
                   <a
                     href={sectionHref(n.href)}
-                    className="block py-1.5 text-[15px] text-chalk-dim transition-colors hover:text-signal"
+                    className="block py-1.5 text-[15px] text-fg-dim transition-colors hover:text-accent"
                   >
                     {n.label}
                   </a>
@@ -61,11 +61,11 @@ export default function Footer() {
               <li>
                 <a
                   href={BUSINESS.phoneHref}
-                  className="flex items-center gap-2.5 num text-[15px] font-semibold transition-colors hover:text-signal"
+                  className="flex items-center gap-2.5 num text-[15px] font-semibold transition-colors hover:text-accent"
                 >
                   <Phone
                     size={15}
-                    className="flex-none text-signal"
+                    className="flex-none text-accent"
                     strokeWidth={2.2}
                   />
                   {BUSINESS.phone}
@@ -74,11 +74,11 @@ export default function Footer() {
               <li>
                 <a
                   href={`mailto:${BUSINESS.email}`}
-                  className="flex items-center gap-2.5 text-[15px] text-chalk-dim transition-colors hover:text-signal"
+                  className="flex items-center gap-2.5 text-[15px] text-fg-dim transition-colors hover:text-accent"
                 >
                   <Mail
                     size={15}
-                    className="flex-none text-signal"
+                    className="flex-none text-accent"
                     strokeWidth={2.2}
                   />
                   {BUSINESS.email}
@@ -89,18 +89,18 @@ export default function Footer() {
                   href={BUSINESS.maps.google}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-start gap-2.5 text-[15px] text-chalk-dim transition-colors hover:text-signal"
+                  className="flex items-start gap-2.5 text-[15px] text-fg-dim transition-colors hover:text-accent"
                 >
                   <MapPin
                     size={15}
-                    className="mt-1 flex-none text-signal"
+                    className="mt-1 flex-none text-accent"
                     strokeWidth={2.2}
                   />
                   {BUSINESS.address}
                 </a>
                 {/* Navigacija vienu paspaudimu – telefone atsidaro programėlė. */}
                 <div className="mt-4">
-                  <span className="label-mono !text-[9.5px] text-chalk-faint">
+                  <span className="label-mono !text-[9.5px] text-fg-faint">
                     Naviguoti
                   </span>
                 </div>
@@ -109,12 +109,12 @@ export default function Footer() {
                     href={BUSINESS.maps.google}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex min-h-[44px] items-center gap-2 rounded-full lg:min-h-[38px] border border-[color-mix(in_oklab,#f4f4f1_20%,transparent)] px-3.5 text-[13px] font-bold transition-colors hover:border-signal hover:text-signal"
+                    className="inline-flex min-h-[44px] items-center gap-2 rounded-full lg:min-h-[38px] border border-[color-mix(in_oklab,var(--color-fg)_20%,transparent)] px-3.5 text-[13px] font-bold transition-colors hover:border-accent hover:text-accent"
                   >
                     <Navigation
                       size={13}
                       strokeWidth={2.4}
-                      className="text-signal"
+                      className="text-accent"
                     />
                     Google Maps
                   </a>
@@ -122,12 +122,12 @@ export default function Footer() {
                     href={BUSINESS.maps.waze}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex min-h-[44px] items-center gap-2 rounded-full lg:min-h-[38px] border border-[color-mix(in_oklab,#f4f4f1_20%,transparent)] px-3.5 text-[13px] font-bold transition-colors hover:border-signal hover:text-signal"
+                    className="inline-flex min-h-[44px] items-center gap-2 rounded-full lg:min-h-[38px] border border-[color-mix(in_oklab,var(--color-fg)_20%,transparent)] px-3.5 text-[13px] font-bold transition-colors hover:border-accent hover:text-accent"
                   >
                     <Navigation
                       size={13}
                       strokeWidth={2.4}
-                      className="text-signal"
+                      className="text-accent"
                     />
                     Waze
                   </a>
@@ -143,9 +143,9 @@ export default function Footer() {
               {BUSINESS.hours.map((h) => (
                 <li
                   key={h.days}
-                  className="flex gap-3 num text-[14px] text-chalk-dim"
+                  className="flex gap-3 num text-[14px] text-fg-dim"
                 >
-                  <span className="w-16 flex-none text-chalk">{h.days}</span>
+                  <span className="w-16 flex-none text-fg">{h.days}</span>
                   {h.time}
                 </li>
               ))}
@@ -159,7 +159,7 @@ export default function Footer() {
                 <li key={l.href}>
                   <a
                     href={url(l.href)}
-                    className="block py-1.5 text-[15px] text-chalk-dim transition-colors hover:text-signal"
+                    className="block py-1.5 text-[15px] text-fg-dim transition-colors hover:text-accent"
                   >
                     {l.label}
                   </a>
@@ -169,7 +169,7 @@ export default function Footer() {
                 <button
                   type="button"
                   onClick={openConsentSettings}
-                  className="block py-1.5 text-left text-[15px] text-chalk-dim transition-colors hover:text-signal"
+                  className="block py-1.5 text-left text-[15px] text-fg-dim transition-colors hover:text-accent"
                 >
                   Slapukų nustatymai
                 </button>
@@ -185,7 +185,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-2 border-t border-[color-mix(in_oklab,#f4f4f1_11%,transparent)] pt-6 text-[13px] text-chalk-faint sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col gap-2 border-t border-[color-mix(in_oklab,var(--color-fg)_11%,transparent)] pt-6 text-[13px] text-fg-faint sm:flex-row sm:items-center sm:justify-between">
           <p>
             {new Date().getFullYear()} © {BUSINESS.legal}. Visos teisės
             saugomos.

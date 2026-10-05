@@ -29,7 +29,8 @@ export default function Combobox({
 
   useEffect(() => {
     const onDoc = (e: MouseEvent) => {
-      if (wrap.current && !wrap.current.contains(e.target as Node)) setOpen(false);
+      if (wrap.current && !wrap.current.contains(e.target as Node))
+        setOpen(false);
     };
     document.addEventListener("mousedown", onDoc);
     return () => document.removeEventListener("mousedown", onDoc);
@@ -90,7 +91,9 @@ export default function Combobox({
         aria-expanded={open}
         aria-controls={`${id}-list`}
         aria-autocomplete="list"
-        aria-activedescendant={open && active >= 0 ? `${id}-opt-${active}` : undefined}
+        aria-activedescendant={
+          open && active >= 0 ? `${id}-opt-${active}` : undefined
+        }
         autoComplete="off"
         className={`field pr-12 ${invalid ? "field-invalid" : ""}`}
         placeholder={placeholder}
@@ -106,7 +109,7 @@ export default function Combobox({
       />
       <ChevronDown
         size={17}
-        className={`pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-chalk-dim transition-transform duration-200 ${
+        className={`pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-fg-dim transition-transform duration-200 ${
           open ? "-rotate-180" : ""
         }`}
       />
@@ -116,7 +119,7 @@ export default function Combobox({
           ref={listRef}
           id={`${id}-list`}
           role="listbox"
-          className="absolute z-30 mt-2 max-h-[248px] w-full overflow-y-auto rounded-xl border border-[color-mix(in_oklab,#f4f4f1_20%,transparent)] bg-ink-600 p-1.5 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.9)]"
+          className="absolute z-30 mt-2 max-h-[248px] w-full overflow-y-auto rounded-xl border border-[color-mix(in_oklab,var(--color-fg)_20%,transparent)] bg-paper-3 p-1.5 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.9)]"
         >
           {filtered.map((o, i) => (
             <li key={o}>
@@ -129,11 +132,11 @@ export default function Combobox({
                 onMouseEnter={() => setActive(i)}
                 onClick={() => pick(o)}
                 className={`flex w-full items-center justify-between gap-3 rounded-lg px-3 py-3 text-left text-[15px] font-medium transition-colors ${
-                  i === active ? "bg-signal/12 text-signal" : ""
+                  i === active ? "bg-signal/12 text-accent" : ""
                 }`}
               >
                 {o}
-                {o === value && <Check size={16} className="text-signal" />}
+                {o === value && <Check size={16} className="text-accent" />}
               </button>
             </li>
           ))}

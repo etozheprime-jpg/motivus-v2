@@ -17,16 +17,23 @@ export default function Reviews() {
           {REVIEWS.map((r, i) => (
             <figure
               key={r.name}
-              className="reveal flex flex-col rounded-panel border border-[color-mix(in_oklab,#f4f4f1_11%,transparent)] bg-ink-700/55 p-6 sm:p-7"
-              style={{ "--reveal-delay": `${i * 110}ms` } as React.CSSProperties}
+              className="reveal flex flex-col rounded-panel bg-paper-2 p-6 sm:p-7"
+              style={
+                { "--reveal-delay": `${i * 110}ms` } as React.CSSProperties
+              }
             >
-              <Quote size={20} strokeWidth={2.2} className="text-signal/70" aria-hidden="true" />
-              <blockquote className="mt-5 flex-1 text-[16px] leading-[1.68] text-chalk">
+              <Quote
+                size={20}
+                strokeWidth={2.2}
+                className="text-accent/70"
+                aria-hidden="true"
+              />
+              <blockquote className="mt-5 flex-1 text-[16px] leading-[1.68] text-fg">
                 „{r.text}“
               </blockquote>
-              <figcaption className="mt-6 flex items-center gap-3 border-t border-[color-mix(in_oklab,#f4f4f1_11%,transparent)] pt-5">
+              <figcaption className="mt-6 flex items-center gap-3 border-t border-[color-mix(in_oklab,var(--color-fg)_11%,transparent)] pt-5">
                 <span
-                  className="grid h-10 w-10 flex-none place-items-center rounded-full bg-signal/14 font-display text-[15px] font-extrabold text-signal"
+                  className="grid h-10 w-10 flex-none place-items-center rounded-full bg-signal/14 font-display text-[15px] font-extrabold text-accent"
                   aria-hidden="true"
                 >
                   {r.name.slice(0, 1)}

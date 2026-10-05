@@ -23,8 +23,16 @@ export type Consent = ConsentCategories & {
 export const CONSENT_VERSION = 1;
 const KEY = "motivus.consent";
 
-export const ALL_ON: ConsentCategories = { analytics: true, marketing: true, functional: true };
-export const ALL_OFF: ConsentCategories = { analytics: false, marketing: false, functional: false };
+export const ALL_ON: ConsentCategories = {
+  analytics: true,
+  marketing: true,
+  functional: true,
+};
+export const ALL_OFF: ConsentCategories = {
+  analytics: false,
+  marketing: false,
+  functional: false,
+};
 
 /** Grąžina išsaugotą sutikimą arba null, jei lankytojas dar nesirinko. */
 export function readConsent(): Consent | null {
@@ -41,7 +49,11 @@ export function readConsent(): Consent | null {
 }
 
 export function saveConsent(categories: ConsentCategories): Consent {
-  const c: Consent = { ...categories, v: CONSENT_VERSION, ts: new Date().toISOString() };
+  const c: Consent = {
+    ...categories,
+    v: CONSENT_VERSION,
+    ts: new Date().toISOString(),
+  };
   try {
     localStorage.setItem(KEY, JSON.stringify(c));
   } catch {
