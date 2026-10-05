@@ -1,0 +1,7 @@
+node_modules
+dist
+.env
+.DS_Store
+
+hero-originalas-vp9.mp4
+motivus-dist.zip
